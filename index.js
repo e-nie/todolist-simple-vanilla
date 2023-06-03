@@ -1,25 +1,28 @@
-const list = [
-    {
-        id: 'id1',
-        title: 'Learn CSS',
-        done: true,
-    },
-    {
-        id: 'id2',
-        title: 'Learn JS',
-        done: false,
-    },
-    {
-        id: 'id3',
-        title: 'Learn React',
-        done: false,
-    },
-    {
-        id: 'id4',
-        title: 'Get a job',
-        done: false,
-    },
-];
+const list =  JSON.parse(localStorage.getItem('list'))
+
+
+//     [
+//     {
+//         id: 'id1',
+//         title: 'Learn CSS',
+//         done: true,
+//     },
+//     {
+//         id: 'id2',
+//         title: 'Learn JS',
+//         done: false,
+//     },
+//     {
+//         id: 'id3',
+//         title: 'Learn React',
+//         done: false,
+//     },
+//     {
+//         id: 'id4',
+//         title: 'Get a job',
+//         done: false,
+//     },
+// ];
 
 const listElement = document.getElementById('list');
 const todoInput = document.getElementById('todoInput');
@@ -45,6 +48,9 @@ function render() {
         listItem.appendChild(buttonItem);
         listItem.append(buttonDelete);
         listElement.appendChild(listItem);
+
+
+
     });
 }
 
@@ -58,8 +64,7 @@ listElement.addEventListener('click', (event) => {
                 list[i].done = !list[i].done;
             }
         }
-        console.log(list);
-
+        updateLocalStorage()
         render();
     }
 });
@@ -74,9 +79,11 @@ const addToList = () => {
             done: false,
         }
     );
+    updateLocalStorage()
 
     render();
 
     todoInput.value = '';
 };
 
+const updateLocalStorage = () =>  localStorage.setItem('list', JSON.stringify(list));
